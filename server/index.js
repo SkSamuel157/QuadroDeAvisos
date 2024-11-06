@@ -16,14 +16,16 @@ const pusher = new Pusher({
 
 // Endpoint para enviar notificações
 app.post('/send-notification', (req, res) => {
-  const { message } = req.body;
-
-  pusher.trigger('my-channel', 'my-event', {
-    message: message
+    const { title, message } = req.body;
+  
+    pusher.trigger('my-channel', 'my-event', {
+      title: title,
+      message: message
+    });
+  
+    res.status(200).send('Notificação enviada!');
   });
-
-  res.status(200).send('Notificação enviada!');
-});
+  
 
 const PORT = 5000;
 app.listen(PORT, () => {
